@@ -1,0 +1,15 @@
+# Feedback privacy record checks
+
+Checked against primary sources on 11 October 2026. These checks concern personal information inside feedback records and their attached source rows or notes. They do not establish full compliance.
+
+| Rule       | Scope                                               | Implemented check                                                    | Source                                                                                                                                                                    |
+| ---------- | --------------------------------------------------- | -------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| NZ-IPP8    | Personal feedback classified NZ                     | Missing or past business accuracy review date                        | [NZ Privacy Commissioner, principle 8](https://www.privacy.org.nz/privacy-principles/8/)                                                                                  |
+| NZ-IPP9    | Personal feedback classified NZ                     | Missing purpose, or missing or past retention review date            | [NZ Privacy Commissioner, principle 9](https://www.privacy.org.nz/privacy-principles/9/)                                                                                  |
+| AU-APP11.2 | Personal feedback classified AU and APP entity true | Missing purpose or retention review date, or review date in the past | [OAIC, APP 11](https://www.oaic.gov.au/privacy/australian-privacy-principles/australian-privacy-principles-guidelines/chapter-11-app-11-security-of-personal-information) |
+
+NZ principle 8 concerns reasonable accuracy checks before use or disclosure. Principle 9 limits retention to the purposes for which information can lawfully be used. APP 11.2 addresses reasonable disposal or de-identification steps when information is no longer needed, subject to the record and legal exceptions described by OAIC. Determine whether the Australian business is an APP entity before enabling that scope.
+
+No law here specifies our review interval. The business chooses its review dates. Passing a date check does not prove accuracy, lawful purpose or lawful retention. Missing source data is a review gap, not a finding of a legal breach. An operator must examine legal holds and record obligations before disposal. Archiving or changing status does not dispose of information. This software never deletes it automatically. Backups and drafts need the same retention handling.
+
+All imports start marked as personal, with missing review dates surfaced. Names, free text and source rows require review even if the idea title is harmless. Accounts use business names; if personal details are added there, include them in the organisation's broader privacy review. Access controls, security, collection notices, international disclosure, requests from individuals and breach response require separate installation work.

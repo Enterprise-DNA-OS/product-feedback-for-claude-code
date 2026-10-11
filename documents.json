@@ -1,11 +1,38 @@
 [
   {
-    "name": "example",
-    "title": "TODO(author): the first document this industry must produce",
-    "for_each": "select gen_random_uuid() as id, 'Example' as name",
+    "name": "decision-pack",
+    "title": "Feedback decision pack",
+    "for_each": "select id,title as name from feedback.ideas",
     "file": "name",
     "sections": [
-      { "title": "Details", "sql": "select 'replace me' as item, $1::text as record_id" }
+      {
+        "title": "Decision and source counts",
+        "sql": "select title,description,status,owner,effort,source_votes,source_comments,reviewed_on from feedback.ideas where id=$1"
+      },
+      {
+        "title": "Verified account evidence",
+        "sql": "select a.name,a.currency,a.mrr,s.evidence from feedback.support s join feedback.accounts a on a.id=s.account_id where s.idea_id=$1"
+      },
+      {
+        "title": "Review notes",
+        "sql": "select actor,body,created_at from feedback.notes where idea_id=$1 order by created_at"
+      }
+    ]
+  },
+  {
+    "name": "promise-statement",
+    "title": "Customer promise statement",
+    "for_each": "select id,name from feedback.accounts",
+    "file": "name",
+    "sections": [
+      {
+        "title": "Account",
+        "sql": "select name,currency,mrr,renewal_on from feedback.accounts where id=$1"
+      },
+      {
+        "title": "Promises and evidence",
+        "sql": "select i.title,i.status,p.due_on,p.owner,p.state,p.evidence from feedback.promises p join feedback.ideas i on i.id=p.idea_id where p.account_id=$1 order by p.due_on"
+      }
     ]
   }
 ]

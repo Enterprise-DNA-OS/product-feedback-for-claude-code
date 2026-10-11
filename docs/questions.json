@@ -1,0 +1,42 @@
+[
+  [
+    "Which promises are overdue on ideas that have not shipped?",
+    "promises"
+  ],
+  [
+    "Which near-term renewals depend on unresolved feedback?",
+    "renewal-risk"
+  ],
+  [
+    "Which completed ideas still need customer follow-up?",
+    "close-loop"
+  ],
+  [
+    "Which requests have source votes but no verified account evidence?",
+    "unlinked-demand"
+  ],
+  [
+    "Which ideas have the most supported revenue per effort unit in each currency?",
+    "priorities"
+  ],
+  [
+    "Who has the most open effort assigned?",
+    "owner-load"
+  ],
+  [
+    "Which requests have no accountable owner?",
+    "attention"
+  ],
+  [
+    "Which idea titles need a duplicate review before we estimate them?",
+    "duplicates"
+  ],
+  [
+    "Which personal feedback records are overdue for retention review?",
+    "compliance"
+  ],
+  [
+    "What did the operator change in the last review?",
+    "history"
+  ]
+]

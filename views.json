@@ -1,13 +1,31 @@
 [
   {
     "name": "week",
-    "title": "This week",
-    "subtitle": "Product Feedback for Claude Code: what needs attention, rendered by npm run view",
+    "title": "Weekly product feedback review",
     "sections": [
       {
-        "title": "Needs attention",
-        "note": "TODO(author): point this at the industry's attention view (overdue, stuck, quiet).",
-        "sql": "select 'replace me' as item, 'TODO(author)' as why"
+        "title": "Attention",
+        "sql": "select * from feedback.attention"
+      },
+      {
+        "title": "Verified account demand",
+        "note": "Revenue associated with requests, not predicted revenue. Compare within each currency.",
+        "sql": "select * from feedback.demand order by currency,mrr_per_effort desc"
+      },
+      {
+        "title": "Release follow-up",
+        "sql": "select * from feedback.close_loop"
+      }
+    ]
+  },
+  {
+    "name": "privacy",
+    "title": "Privacy review gaps",
+    "sections": [
+      {
+        "title": "Scoped checks",
+        "note": "Business review dates, not legal deadlines. See docs/compliance.md.",
+        "sql": "select * from feedback.privacy_checks"
       }
     ]
   }

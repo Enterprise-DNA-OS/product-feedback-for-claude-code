@@ -1,115 +1,98 @@
-<h1 align="center">Product Feedback for Claude Code</h1>
+# Product Feedback for Claude Code
 
-<p align="center">
-  <strong>The open-source product feedback system that is just a database and Claude Code.</strong>
-</p>
+Keep feedback, supporting accounts, customer promises and release follow-up in a database you own. The agent is the way you work with it. Built for a product owner who wants to run the weekly feedback review from their own records.
 
-<p align="center">
-  Created by <a href="https://www.enterprisedna.co"><strong>Enterprise DNA</strong></a>. Free and open source. Works with Claude Code, Codex, OpenCode or Cursor.
-</p>
+## Three ways to run it
 
-<!-- three-doors -->
-<table align="center">
-  <tr>
-    <td align="center"><strong>Do it yourself</strong><br/>Clone it, run it, own it. Free, MIT.<br/><a href="#quick-start">Quick start</a></td>
-    <td align="center"><strong>We customise it</strong><br/>Your fields, your rules, your Canny data brought across.<br/><a href="https://enterprisedna.co/omni/book/?utm_source=github&utm_medium=readme&utm_campaign=canny">Book a call</a></td>
-    <td align="center"><strong>We run it for you</strong><br/>Installed, connected and operated inside Omni. Setup fee, then a retainer.<br/><a href="https://enterprisedna.co/omni/instead-of/canny?utm_source=github&utm_medium=readme&utm_campaign=canny">How it works</a></td>
-  </tr>
-</table>
+- **Do it yourself.** MIT licensed. Install the free version, bring your Canny posts across and run it with Claude Code, Codex, OpenCode or Cursor. Database hosting and agent usage are yours to arrange.
+- **We customise it.** Enterprise DNA brings your feedback across, adds your account fields, decision rules and any customer portal you need. One setup fee, then an agreed retainer for ongoing work.
+- **We run it for you.** Omni by Enterprise DNA installs, connects, backs up and operates your version. One setup fee, then a monthly retainer. [Book a call](https://enterprisedna.co/omni/book?offer=replace-software&utm_campaign=canny&utm_medium=readme).
 
-<p align="center">
-  <a href="#what-is-this">What is this</a> &bull;
-  <a href="#why-no-front-end">Why no front end</a> &bull;
-  <a href="#quick-start">Quick start</a> &bull;
-  <a href="#the-commands">Commands</a> &bull;
-  <a href="#instead-of-canny">Instead of Canny</a> &bull;
-  <a href="#want-it-installed-and-run-for-you">Installed for you</a> &bull;
-  <a href="#license">License</a>
-</p>
-
-<p align="center">
-  <img src="https://img.shields.io/badge/Node-20+-339933?style=flat-square" alt="Node 20+" />
-  <img src="https://img.shields.io/badge/PostgreSQL-any-336791?style=flat-square" alt="PostgreSQL" />
-  <img src="https://img.shields.io/badge/PGlite-embedded-3ecf8e?style=flat-square" alt="PGlite" />
-  <img src="https://img.shields.io/badge/License-MIT-yellow?style=flat-square" alt="MIT License" />
-</p>
-
----
-
-## What is this
-
-Product Feedback for Claude Code does the job you pay Canny for, as a Postgres database and a set of agent commands. There is no web front end. You open the folder in [Claude Code](https://claude.com/claude-code) (or Codex, OpenCode, Cursor: see `AGENTS.md`) and ask for what you want in plain language. It runs the right query, and it can answer questions the Canny dashboard cannot.
-
-<!-- TODO(author): the annual bill. One sentence: what a 10 to 50 person business typically pays Canny per year, all in, with a source. -->
-
-Want the same thing with a web front end, or built on a different stack? That is a customisation, and it is exactly what Enterprise DNA does: [book a call](https://enterprisedna.co/omni/book/?utm_source=github&utm_medium=readme&utm_campaign=canny).
-
-<!-- TODO(author): two or three sentences on what this specific product covers and who it is for. -->
-
-## Why no front end
-
-- The front end was only ever there because the database was hard to talk to. That is no longer true.
-- Your data sits in plain Postgres tables you own. Any tool can read them. No export, no lock-in.
-- No seats, no tiers, no add-ons. Read [docs/why-no-front-end.md](docs/why-no-front-end.md) for the honest trade-offs too.
-
-## Quick start
-
-Sixty seconds, no database install (an embedded Postgres runs inside Node):
+## Start with fictional data
 
 ```bash
-git clone https://github.com/Enterprise-DNA-OS/product-feedback-for-claude-code.git
-cd product-feedback-for-claude-code
 npm install
 npm run demo
+npm run feedback -- attention
+npm run feedback -- priorities --json
+npm run view
+npm run docs
 ```
 
-Then open the folder in Claude Code and type a slash command. <!-- TODO(author): name the first command to try. -->
+Requires Node 20 or newer. With DATABASE_URL unset, PGlite persists to .data/db. Set DATABASE_URL to a PostgreSQL connection for a hosted installation. Do not share a database owner credential with browsers. Records have row security enabled and public access revoked; a hosted installation needs its own reviewed access design. Use a fresh database for real imports, not the demo database.
 
-### Use it with your own Postgres or Supabase
+## The weekly work
 
-Copy `.env.example` to `.env`, set `DATABASE_URL`, then `npm run migrate`. Same commands, shared data, no per-seat fee.
+Triage requests, rank supported demand, review customer promises, check approaching renewals and close the loop on releases. Imported vote and revenue totals are source snapshots, never assumed to identify individual voters or accounts. Supported account revenue is counted once per idea and kept separate by currency. It is revenue associated with a request, not a forecast of revenue that building it will win.
 
-## The commands
+- /boards: List boards and their idea counts.
+- /ideas: List ideas and source vote totals.
+- /accounts: Read customer revenue, currency and renewal dates.
+- /attention: Read unassigned ideas, overdue promises and stale reviews.
+- /triage: Review new and unreviewed feedback.
+- /priorities: Rank linked recurring revenue per effort within each currency.
+- /roadmap: Review planned work and work in progress.
+- /promises: Check customer promises and overdue dates.
+- /close-loop: Find completed work still awaiting customer follow-up.
+- /renewal-risk: Find unresolved requests for accounts renewing within 60 days.
+- /owner-load: Review open ideas and effort by owner.
+- /unlinked-demand: Find feedback without verified supporting accounts.
+- /duplicates: Review title matches; never automatically merge.
+- /compliance: Review privacy control prompts with their source links.
+- /history: Read the last 100 recorded changes.
+- /idea: Read --idea with supporting accounts, promises and notes.
+- /search: Find --text in titles and descriptions.
 
-<!-- TODO(author): a table of the slash commands in .claude/commands and what each one does. -->
+Writes: /add-board, /add-account, /add, /assign, /support, /promise, /resolve-promise, /set-status, /review, /privacy, /log, /import. Every write requires --actor. Use /weekly-review and /draft-release for private drafts; /export for backups; /customise and /new-view for changes. /help lists CLI commands.
 
-| Command | What it does |
-|---|---|
-| `/...` | ... |
+## Ten questions for your own feedback review
 
-## Instead of canny
+These are implemented today. Canny also offers analysis and custom fields; this is a list of our installed queries, not a claim that its platform cannot answer them.
 
-<!-- TODO(author): how to bring data across from Canny; link docs/replace-canny.md -->
+- Which promises are overdue on ideas that have not shipped? `promises`
+- Which near-term renewals depend on unresolved feedback? `renewal-risk`
+- Which completed ideas still need customer follow-up? `close-loop`
+- Which requests have source votes but no verified account evidence? `unlinked-demand`
+- Which ideas have the most supported revenue per effort unit in each currency? `priorities`
+- Who has the most open effort assigned? `owner-load`
+- Which requests have no accountable owner? `attention`
+- Which idea titles need a duplicate review before we estimate them? `duplicates`
+- Which personal feedback records are overdue for retention review? `compliance`
+- What did the operator change in the last review? `history`
 
-## Architecture
+## Your first hour: ten things to ask for
 
+1. Put our business name and logo on the review pack.
+2. Show the overdue customer promises.
+3. Explain which upcoming renewals have unresolved requests.
+4. Assign the unowned request to our product owner.
+5. Compare supported demand without combining currencies.
+6. Show imported feedback that still needs account mapping.
+7. Draft the follow-up for a completed release.
+8. Record the evidence from a customer acceptance call.
+9. Add our product line field through a migration.
+10. Test our Canny export before saving anything.
+
+## Bring your Canny posts across
+
+```bash
+npm run migrate
+npm run feedback -- add-board --name="Customer requests" --actor="Migration operator"
+npm run feedback -- import canny --file=examples/canny-posts.csv --board="Customer requests" --actor="Migration operator" --dry-run
 ```
-product-feedback-for-claude-code/
-  CLAUDE.md                 how the operator wants this run (routing table + house rules)
-  AGENTS.md                 the same, for Codex / OpenCode / Cursor / Gemini CLI
-  .claude/commands/         the slash commands
-  scripts/                  the CLI the commands drive
-  scripts/lib/db.mjs        one adapter: DATABASE_URL (pg) or embedded PGlite
-  supabase/migrations/      plain SQL schema
-  supabase/seed.sql         demo data
-  docs/                     the thesis and the migration guide
-```
 
-## Built for coding agents
+Remove --dry-run after checking. Use Canny's Posts export with Post Title and Post URL. Column aliases are documented in [the switch guide](docs/replace-canny.md). The newer Ideas export is a different format and is rejected. Repeat imports skip identical source records. Changed source records require --update, which refreshes source snapshots and aggregate counts while preserving your local title, description, owner and workflow. No voter identities, comment bodies, files or integrations are manufactured from counts.
 
-The database, CLI and command recipes work with Claude Code, Codex, OpenCode or Cursor. Ask your coding agent for a new command and have it implement and test the change against the same records.
+## Documents and views
 
-## Contributing
+npm run docs writes a feedback decision pack per idea and a customer promise statement per account. npm run view writes private read-only weekly and privacy reports. Change brand.json to brand them. Drafts live in drafts/, printable HTML in docs-out/ and views/. Nothing sends, hosts a portal or changes data from a screen. [Why no front end](docs/why-no-front-end.md).
 
-Issues and pull requests are welcome. Keep the shape: plain SQL, a small CLI, a slash command per recurring job, no front end.
+## Privacy checks
 
-## Want it installed and run for you?
+The checks flag NZ accuracy and retention review gaps and scoped Australian APP 11.2 review gaps. Review dates are business policies, not legal deadlines. Imports are conservatively marked as personal information and need classification. [Rules and primary sources](docs/compliance.md). This is a limited record review, not compliance certification or an automated disposal system.
 
-Enterprise DNA installs Product Feedback for Claude Code for your business, migrates your Canny data, connects it to the rest of your tools, and runs it for you as part of **Omni**, our managed Command Center. One setup fee, then a monthly retainer.
+## Validation
 
-- Book a call: [enterprisedna.co/omni/book](https://enterprisedna.co/omni/book/?offer=replace-software&utm_source=github&utm_medium=readme&utm_campaign=canny)
-- Read more: [enterprisedna.co/omni/instead-of/canny](https://enterprisedna.co/omni/instead-of/canny?utm_source=github&utm_medium=readme&utm_campaign=canny)
+npm test creates a temporary database, migrates and seeds twice, exercises every CLI command, tests malformed and repeat imports, rollback, name ambiguity, promise guards, currency separation, privacy scope, exports, drafts and escaped HTML. The CI file runs on Linux, Windows and a separate PostgreSQL service. Local results and CI results are separate evidence.
 
-## License
-
-MIT. Copyright (c) 2026 Enterprise DNA.
+MIT licence. Canny is a trademark of its owner. This project is independent of Canny.
