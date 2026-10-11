@@ -5,16 +5,16 @@
     "sections": [
       {
         "title": "Attention",
-        "sql": "select * from feedback.attention"
+        "sql": "select title,owner,status,reason from feedback.attention order by title"
       },
       {
         "title": "Verified account demand",
         "note": "Revenue associated with requests, not predicted revenue. Compare within each currency.",
-        "sql": "select * from feedback.demand order by currency,mrr_per_effort desc"
+        "sql": "select title,status,effort,currency,supporting_accounts,linked_mrr as monthly_revenue,mrr_per_effort as revenue_per_effort from feedback.demand order by currency,mrr_per_effort desc"
       },
       {
         "title": "Release follow-up",
-        "sql": "select * from feedback.close_loop"
+        "sql": "select title,account,owner,due_on from feedback.close_loop order by due_on"
       }
     ]
   },
@@ -25,7 +25,7 @@
       {
         "title": "Scoped checks",
         "note": "Business review dates, not legal deadlines. See docs/compliance.md.",
-        "sql": "select * from feedback.privacy_checks"
+        "sql": "select title,rule,finding,source from feedback.privacy_checks order by title,rule"
       }
     ]
   }
